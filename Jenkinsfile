@@ -14,7 +14,7 @@ pipeline {
             steps {
                 script {
                     // Run the Docker container from the built image
-                    docker.image('my-spring-boot-app').run('-p 8080:8080')
+                    docker.image('my-spring-boot-app').run('-p 8080:8082')
                 }
             }
         }
