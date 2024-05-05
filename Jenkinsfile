@@ -1,23 +1,21 @@
 pipeline {
-    agent any // This specifies that the pipeline can run on any available agent in Jenkins
+    agent any
 
     stages {
-        stage('Build') {
+        stage('Build Docker Image') {
             steps {
-                // Add build steps here
-                sh 'echo "Building..."'
+                script {
+                    // Build the Docker image using the Dockerfile in the current directory
+                    docker.build('my-spring-boot-app')
+                }
             }
         }
-        stage('Test') {
+        stage('Run Docker Container') {
             steps {
-                // Add test steps here
-                sh 'echo "Testing..."'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                // Add deployment steps here
-                sh 'echo "Deploying..."'
+                script {
+                    // Run the Docker container from the built image
+                    docker.image('my-spring-boot-app').run('-p 8080:8080')
+                }
             }
         }
     }
